@@ -1,0 +1,26 @@
+language: cpp
+compiler:
+  - gcc
+install: .travis/install.sh
+script: .travis/build.sh
+deploy:
+  provider: lambda
+  skip_cleanup: true
+  function_name: extractor-cpp
+  region: us-east-2
+  role: arn:aws:iam::695208893210:role/lambda-role
+  runtime: provided
+  handler_name: handle_request
+  access_key_id: $AWS_ACCESS_KEY_ID
+  secret_access_key: $AWS_SECRET_ACCESS_KEY
+  zip: build/extractor-cpp.zip
+  timeout: 10
+  memory_size: 512
+  on:
+    branch: master
+env:
+  global:
+    # AWS_ACCESS_KEY_ID
+    - secure: nxq9DgyeNB97lkhgma35vcQSvgsSR/QYFR/1sQBDgZqVrGC7TU0gq+CRMQ1IdVWq6RGE7FroaKAb8HiT/6xdeY2BIWl8R1ZMzXS96W7Rql6XZd4sLfu3NeP20XFCs1soMYmR0m6x+H1QvoDRxCmjVlQ50v6S8Gk84oBPqYy+J8TcnZryjgl8ryj/8atgwO2FZk1MGtob26y/83nhhD/a7BZs1SDtF2VnyUQ0jM11hq6zl5QywpMOFF6L+i8XI9KKCbh/pjgOtmEkTIvCsFQa0/A0qKjGySQ3TUwK1w57aiA6R74ZYMm2TmTlBA3T/kx2jykfpy7NFMrlwnW2d3Mhu37QGo0OIwIK7S0cM+GT+MqAD6B8bMZ5QWfdJ7x50JpEYtXnOwFhGKJIPFvjktELWb+rYcUQiH+h7ImcH7ZROHRz/GrX2KVdV/v9RSktZYoS0uv+KrAmtasDtUFhuCnkBaubls91MSkHK/NBXfWt6f8O9+MAJKOUMWpSMRj6DQI7nAseWzSqBSmaiocUAAnt0Cv80BwqHXgs7swSWZTxgSCjhv5QpMv6Q2CGnnpq4eAfBsd6qtI7vSmgEvFsqfRPRcgE7HE/kZDfLGk3BU+zSOvIa8ZCnSNpmnEd2ZmJybk9CNTNrimXUfxha+sy9Y39w11X4UGzV2CNhSpRDoOavzY=
+    # AWS_SECRET_ACCESS_KEY
+    - secure: XjVEeKSN07eMhLmsoLQO0BJ+SdjB0L0pgOH9veDAs1MEnh8xQO0uY1ysf0kaP9jxNZL3bEo53+EelEitaekcLoK4MpsjWH7bUum+76f+vXBNFUshBIcqZG7id5D6pKllMqCpgPH7cuKQuyLA4fK7MJMaTLIuvzMTMA9I68V2RBpvrES0IiArkodziNLgDWQAgqXWbpszpzzeAo5mhctt9ySmmn7Kqx1rWlGXs4cW87TeQAORkrJyqO0n1UFRhJCmceerfYpBsZhkpOLVi4T4eDfsnoWdoDFnu33JZmLQhE33e5pyg5s4Mo1qx+xw8INHUQACXJhkQQrGiSOAHPXKCs0udES5deEaWmxm3D4aNdZfGxPokm7ykMp2oolL3L8wSFb3y1/9tKIcol+HmHQJi4BQ5eKlv5ulqtDORLj9sx7LfWZbHIHjaD8n/+n0ZhSkDhySv6CzuNLbfwlJqEy2H3I7vPRPbKVCY9am5i2dGCvSWSH/b8xHjbBSKmYUjz6uoOm2cKb96WX9W3ZBBYRa0ShlEDZrWLMaI7YEOfJns5S55mUpFLz2vxqdeUZwkif8UBkV/ljRXRdK24UOS48ZDeSaITDXYODbR749pEMgFCSy2W2LU5ZJi62IqzG16Xg8Y6G2Y2Wxe6KPViLabAbDERrEmFm9R0a5hDaPPVzkZpM=
